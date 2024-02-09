@@ -10,14 +10,14 @@ class Thumbnail {
   int? height;
 
   factory Thumbnail.fromJson(Map<String, dynamic> json) => Thumbnail(
-    source: json["source"],
-    width: json["width"],
-    height: json["height"],
-  );
+        source: json["source"],
+        width: json["width"],
+        height: json["height"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "source": source,
-    "width": width,
-    "height": height,
-  };
+        "source": source,
+        "width": width,
+        "height": height,
+      };
 }

@@ -29,14 +29,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-
     super.initState();
     PreferenceUtils.init();
     loadData();
-
   }
 
-  void loadData() async{
+  void loadData() async {
     List<String>? listString = await PreferenceUtils.getCacheList();
     if (listString != null) {
       setState(() {
@@ -70,8 +68,8 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     }
     list.insert(0, item);
-    print('hi');
-    print(item.title);
+    // print('hi');
+    // print(item.title);
     saveData();
   }
 
@@ -83,7 +81,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // print(context.read<LoadingCubit>());
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(
@@ -96,57 +93,63 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             },
           ),
-          Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Appbar(),
-              Container(
-                  child: CustomInputField(
-                      textController: textEditingController,
-                      addItem: () {
-                        print(textEditingController.text);
-                        addItem(Recents(title: textEditingController.text));
-                      })),
-              BlocBuilder<LoadingCubit, LoadingState>(builder: (context, state) {
-                return Column(children: [
-                  if (state.current_state == Current_State.IDLE)
-                    Container(
-                      width: 100,
-                      height: 100,
-                      color: Colors.green,
-                    )
-                  else if (state.current_state == Current_State.NO_INTERNET)
-                    Container(
-                      width: 100,
-                      height: 100,
-                      color: Colors.grey,
-                    )
-                  else if (state.current_state == Current_State.SEARCHING)
-                    Container(
-                      width: 100,
-                      height: 100,
-                      color: Colors.red,
-                    )
-                  else
-                    Container(
-                      width: 100,
-                      height: 100,
-                      color: Colors.yellowAccent,
+          BlocProvider<LoadingCubit>(
+            lazy: false,
+            create: (context) => LoadingCubit(),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Appbar(),
+                CustomInputField(
+                    textController: textEditingController,
+                    addItem: () {
+                      // print(textEditingController.text);
+                      addItem(Recents(title: textEditingController.text));
+                    }),
+                BlocBuilder<LoadingCubit, LoadingState>(
+                    builder: (context, state) {
+                  return Column(children: [
+                    if (state.current_state == Current_State.IDLE)
+                      Container(
+                        width: 100,
+                        height: 100,
+                        color: Colors.green,
+                      )
+                    else if (state.current_state == Current_State.NO_INTERNET)
+                      Container(
+                        width: 100,
+                        height: 100,
+                        color: Colors.grey,
+                      )
+                    else if (state.current_state == Current_State.SEARCHING)
+                      Container(
+                        width: 100,
+                        height: 100,
+                        color: Colors.red,
+                      )
+                    else
+                      Container(
+                        width: 100,
+                        height: 100,
+                        color: Colors.yellowAccent,
+                      ),
+                    const LoadingStates(),
+                    const SizedBox(
+                      height: 20,
                     ),
-                  LoadingStates(),
-                  SizedBox(height: 20,),
-                  CacheHistory(
-                      // resultProvider: context.read(),
-                      recentList: list,
-                      removeRecents: () => removeData(),
-                      loadList: () => loadData(),
-                      removeRecentItem: (String val) {
-                        removeItem(Recents(title: val));
-                      })
-                ]);
-              }),
-            ],
+                    CacheHistory(
+                        // resultProvider: context.read(),
+                        recentList: list,
+                        removeRecents: () => removeData(),
+                        loadList: () => loadData(),
+                        removeRecentItem: (String val) {
+                          removeItem(Recents(title: val));
+                        })
+                  ]);
+                }),
+              ],
+            ),
           ),
         ],
       ),

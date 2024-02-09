@@ -1,19 +1,16 @@
-
 import 'package:blocimplement/cubits/loading_cubit.dart';
 import 'package:blocimplement/provider/search_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+@immutable
 class CustomInputField extends StatefulWidget {
   final TextEditingController textController;
-  Function addItem;
+  final Function addItem;
 
-   CustomInputField(
-      {super.key,
-      required this.textController,
-        required this.addItem
-      });
+  const CustomInputField(
+      {super.key, required this.textController, required this.addItem});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -54,7 +51,6 @@ class _CustomInputFieldState extends State<CustomInputField> {
               //     allWordsCapitilize(widget.textController.text.trim());
               String text = widget.textController.text;
 
-
               onSubmit(text);
             },
             icon: const Icon(
@@ -79,11 +75,11 @@ class _CustomInputFieldState extends State<CustomInputField> {
     );
   }
 
-  onSubmit(String text)async {
+  onSubmit(String text) async {
     if (text.isNotEmpty) {
       widget.addItem();
       widget.textController.text = text;
-      ResultProvider resultProvider=ResultProvider();
+      ResultProvider resultProvider = ResultProvider();
       await resultProvider.searchWord(widget.textController.text, context);
       // widget.textController.text = "";
       // context.read<LoadingCubit>().noInternet();
@@ -92,7 +88,9 @@ class _CustomInputFieldState extends State<CustomInputField> {
           msg: "Nothing there!!!", toastLength: Toast.LENGTH_SHORT);
       context.read<LoadingCubit>().free();
     }
-    FocusScope.of(context).unfocus();
+    if (mounted) {
+      FocusScope.of(context).unfocus();
+    }
   }
 
   String allWordsCapitilize(String str) {
@@ -101,5 +99,4 @@ class _CustomInputFieldState extends State<CustomInputField> {
       return word[0].toUpperCase() + leftText;
     }).join(' ');
   }
-
 }

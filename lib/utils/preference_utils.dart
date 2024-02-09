@@ -1,14 +1,16 @@
 import 'dart:async' show Future;
 import 'package:blocimplement/enums/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../global/global.dart';
 
 class PreferenceUtils {
   static Future<SharedPreferences> get _instance async {
-    if(_prefsInstance==null){
+    if (_prefsInstance == null) {
       _prefsInstance = await SharedPreferences.getInstance();
+      cacheDirectory = (await getTemporaryDirectory()).path;
       getLang();
       getTheme();
     }
@@ -23,18 +25,18 @@ class PreferenceUtils {
     return _prefsInstance!;
   }
 
-  static String getString(String key, String defValue) {
-    return _prefsInstance!.getString(key) ?? defValue ?? "";
-  }
-
-  static Future<bool> setString(String key, String value) async {
-    var prefs = await _instance;
-    return prefs.setString(key, value) ?? Future.value(false);
-  }
+  // static String getString(String key, String defValue) {
+  //   return _prefsInstance?.getString(key) ?? defValue ?? "";
+  // }
+  //
+  // static Future<bool> setString(String key, String value) async {
+  //   var prefs = await _instance;
+  //   return prefs.setString(key, value) ?? Future.value(false);
+  // }
 
   static Future<void> getTheme() async {
     var prefs = await _instance;
-    String? theme = prefs!.getString('theme');
+    String? theme = prefs.getString('theme');
     if (theme == null) {
       prefs.setString('theme', 'LIGHT');
       globaltheme.value = Themes.LIGHT;
@@ -53,9 +55,10 @@ class PreferenceUtils {
       lang.value = languagepref;
     }
   }
+
   static Future<List<String>?> getCacheList() async {
     var prefs = await _instance;
-    List<String>? listString = await prefs.getStringList('list');
+    List<String>? listString = prefs.getStringList('list');
     return listString;
   }
 
@@ -68,21 +71,24 @@ class PreferenceUtils {
       lang.value = languagepref;
     }
   }
-  static void setCacheList(List<String> list)async{
+
+  static Future<void> setCacheList(List<String> list) async {
     var prefs = await _instance;
     await prefs.setStringList('list', list);
   }
-  static Future<void> removeAllCache() async{
+
+  static Future<void> removeAllCache() async {
     var prefs = await _instance;
-    prefs..remove('list');
+    prefs.remove('list');
   }
-  static void saveLang(String lang) async{
+
+  static void saveLang(String lang) async {
     var prefs = await _instance;
     await prefs.setString('lang', lang);
   }
-  static void saveTheme(String theme) async{
+
+  static Future<void> saveTheme(String theme) async {
     var prefs = await _instance;
     await prefs.setString('theme', theme);
   }
-
 }

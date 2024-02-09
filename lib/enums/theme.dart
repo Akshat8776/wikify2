@@ -1,4 +1,1 @@
-enum Themes{
-  DARK,
-  LIGHT
-}
+enum Themes { DARK, LIGHT }

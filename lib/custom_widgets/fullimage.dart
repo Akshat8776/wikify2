@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-// ignore: depend_on_referenced_packages
 import 'package:cached_network_image/cached_network_image.dart';
-// ignore: depend_on_referenced_packages
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 // ignore: must_be_immutable

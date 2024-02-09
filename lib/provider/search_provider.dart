@@ -12,12 +12,12 @@ import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import '/global/global.dart';
 
-class ResultProvider  {
+class ResultProvider {
   SearchResult? searchResult;
   bool cache = false;
 
-   searchWord(String word, BuildContext context) async {
-     context.read<LoadingCubit>().perform();
+  searchWord(String word, BuildContext context) async {
+    context.read<LoadingCubit>().perform();
     word = word.trim();
     cache = false;
 
@@ -38,9 +38,8 @@ class ResultProvider  {
         // context.read<LoadingCubit>().perform();
         await http
             .get(Uri.parse(
-            "https://${lang.value}.wikipedia.org//w/api.php?action=query&format=json&prop=extracts%7Cpageimages%7Cpageterms%7Cinfo&inprop=url&generator=prefixsearch&formatversion=2&piprop=thumbnail&pithumbsize=600&wbptterms=description&gpssearch=$word&exsentences=5&exintro=1&explaintext=1&gpslimit=50"))
+                "https://${lang.value}.wikipedia.org//w/api.php?action=query&format=json&prop=extracts%7Cpageimages%7Cpageterms%7Cinfo&inprop=url&generator=prefixsearch&formatversion=2&piprop=thumbnail&pithumbsize=600&wbptterms=description&gpssearch=$word&exsentences=5&exintro=1&explaintext=1&gpslimit=50"))
             .then((value) async {
-
           // state = Current_State.IDLE;
           // notifyListeners();
           searchResult = SearchResult.fromJson(json.decode(value.body));

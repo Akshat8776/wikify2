@@ -8,13 +8,13 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '/global/global.dart';
 
 class LoadingStates extends StatelessWidget {
-
   const LoadingStates({super.key});
   @override
   Widget build(BuildContext context) {
-    print(context.read<LoadingCubit>().state.current_state);
+    // print(context.read<LoadingCubit>().state.current_state);
 
-    return context.read<LoadingCubit>().state.current_state == Current_State.SEARCHING
+    return context.read<LoadingCubit>().state.current_state ==
+            Current_State.SEARCHING
         ? Padding(
             padding: const EdgeInsets.only(top: 0.0),
             child: Align(
@@ -24,7 +24,8 @@ class LoadingStates extends StatelessWidget {
               size: 50,
             )),
           )
-        : context.read<LoadingCubit>().state.current_state == Current_State.NO_ITEM
+        : context.read<LoadingCubit>().state.current_state ==
+                Current_State.NO_ITEM
             ? Padding(
                 padding: const EdgeInsets.only(top: 0.0),
                 child: Align(
@@ -35,7 +36,8 @@ class LoadingStates extends StatelessWidget {
                               color: textColor,
                             ))),
               )
-            : context.read<LoadingCubit>().state.current_state == Current_State.NO_INTERNET
+            : context.read<LoadingCubit>().state.current_state ==
+                    Current_State.NO_INTERNET
                 ? Align(
                     alignment: Alignment.center,
                     child: Text("No internet connection detected...",

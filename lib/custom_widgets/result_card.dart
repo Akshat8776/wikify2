@@ -28,7 +28,7 @@ class _ResultCardState extends State<ResultCard> {
             // print(widget.page!.terms!.description);
           },
           onTap: () {
-            launchURL(widget.page!.url);
+            launch_url(widget.page!.url);
           },
           // contentPadding: const EdgeInsets.all(8.0),
 

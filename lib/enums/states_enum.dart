@@ -1,6 +1,1 @@
-enum Current_State {
-  IDLE,
-  NO_ITEM,
-  NO_INTERNET,
-  SEARCHING
-}
+enum Current_State { IDLE, NO_ITEM, NO_INTERNET, SEARCHING }

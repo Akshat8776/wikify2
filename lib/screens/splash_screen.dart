@@ -1,10 +1,9 @@
-
-
 import 'dart:async';
 import 'package:flutter/material.dart';
 // import 'home_screen.dart';
 import '/global/global.dart';
 import 'home_scren.dart';
+
 class MyCustomSplashScreen extends StatefulWidget {
   const MyCustomSplashScreen({super.key});
 
@@ -55,7 +54,8 @@ class _MyCustomSplashScreenState extends State<MyCustomSplashScreen>
 
     Timer(const Duration(seconds: 4), () {
       setState(() {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const HomeScreen()));
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const HomeScreen()));
       });
     });
   }
@@ -80,8 +80,7 @@ class _MyCustomSplashScreenState extends State<MyCustomSplashScreen>
               AnimatedContainer(
                   duration: const Duration(milliseconds: 2000),
                   curve: Curves.fastLinearToSlowEaseIn,
-                  height: maxHeight/ _fontSize
-              ),
+                  height: maxHeight / _fontSize),
               AnimatedOpacity(
                 duration: const Duration(milliseconds: 1000),
                 opacity: _textOpacity,
@@ -102,17 +101,19 @@ class _MyCustomSplashScreenState extends State<MyCustomSplashScreen>
               curve: Curves.fastLinearToSlowEaseIn,
               opacity: _containerOpacity,
               child: AnimatedContainer(
-                duration: const Duration(milliseconds: 2000),
-                curve: Curves.fastLinearToSlowEaseIn,
-                height: maxWidth / _containerSize,
-                width: maxWidth / _containerSize,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  // color: Colors.white,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: Image.asset('assets/wikipedia.png',scale: 1,)
-              ),
+                  duration: const Duration(milliseconds: 2000),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  height: maxWidth / _containerSize,
+                  width: maxWidth / _containerSize,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    // color: Colors.white,
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: Image.asset(
+                    'assets/wikipedia.png',
+                    scale: 1,
+                  )),
             ),
           ),
         ],
