@@ -1,3 +1,5 @@
+import 'package:blocimplement/utils/preference_utils.dart';
+
 import '/global/global.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -54,7 +56,7 @@ class _LanguageToggleState extends State<LanguageToggle> {
       } else {
         lang.value = "en";
       }
-      sharedPreferences!.setString('lang', lang.value);
+      PreferenceUtils.saveLang(lang.value);
       Fluttertoast.showToast(msg: "Language preference saved successfully",toastLength: Toast.LENGTH_SHORT);
     }
   }

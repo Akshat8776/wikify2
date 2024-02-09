@@ -11,29 +11,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  sharedPreferences = await SharedPreferences.getInstance();
-  String? theme= sharedPreferences!.getString('theme');
-  if(theme==null){
-
-    sharedPreferences!.setString('theme', 'LIGHT');
-    globaltheme.value=Themes.LIGHT;
-  }else {
-    globaltheme.value=theme=="LIGHT"?Themes.LIGHT:Themes.DARK;
-  }
-  String? languagepref= sharedPreferences!.getString('lang');
-  if(languagepref==null){
-    sharedPreferences!.setString('lang', 'en');
-  }
-  else {
-    lang.value=languagepref;
-  }
-  col.value=globaltheme.value==Themes.LIGHT?Colors.white:Colors.black;
   cacheDirectory = (await getTemporaryDirectory()).path;
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
 
   @override
   Widget build(BuildContext context) {

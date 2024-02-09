@@ -7,6 +7,7 @@ import 'package:blocimplement/custom_widgets/app_bar.dart';
 import 'package:blocimplement/custom_widgets/custom_input_field.dart';
 import 'package:blocimplement/custom_widgets/loading_states.dart';
 import 'package:blocimplement/enums/states_enum.dart';
+import 'package:blocimplement/utils/preference_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,12 +29,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    loadData();
+
     super.initState();
+    PreferenceUtils.init();
+    loadData();
+
   }
 
-  void loadData() {
-    List<String>? listString = sharedPreferences!.getStringList('list');
+  void loadData() async{
+    List<String>? listString = await PreferenceUtils.getCacheList();
     if (listString != null) {
       setState(() {
         list = listString
@@ -46,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   removeData() async {
-    await sharedPreferences!.remove('list');
+    await PreferenceUtils.removeAllCache();
     loadData();
   }
 
@@ -74,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void saveData() {
     List<String> stringList =
         list.map((item) => json.encode(item.toMap())).toList();
-    sharedPreferences!.setStringList('list', stringList);
+    PreferenceUtils.setCacheList(stringList);
   }
 
   @override

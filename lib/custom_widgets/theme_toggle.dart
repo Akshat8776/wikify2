@@ -1,3 +1,5 @@
+import 'package:blocimplement/utils/preference_utils.dart';
+
 import '/enums/theme.dart';
 import '/global/global.dart';
 import 'package:flutter/material.dart';
@@ -61,8 +63,7 @@ class _ThemeToggleState extends State<ThemeToggle> {
         globaltheme.value = Themes.LIGHT;
         col.value = Colors.white;
       }
-      sharedPreferences!
-          .setString('theme', globaltheme.value.toString().split('.')[1]);
+      PreferenceUtils.saveTheme(globaltheme.value.toString().split('.')[1]);
       Fluttertoast.showToast(msg: "Theme preference saved successfully",toastLength: Toast.LENGTH_SHORT);
     }
   }
